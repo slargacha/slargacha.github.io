@@ -1,0 +1,19 @@
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="{{ '/' | relative_url }}" class="nav-logo">SL<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="{% if page.layout == 'home' %}#about{% else %}{{ '/#about' | relative_url }}{% endif %}">About</a></li>
+      <li><a href="{% if page.layout == 'home' %}#skills{% else %}{{ '/#skills' | relative_url }}{% endif %}">Skills</a></li>
+      <li><a href="{% if page.layout == 'home' %}#experience{% else %}{{ '/#experience' | relative_url }}{% endif %}">Experience</a></li>
+      <li><a href="{% if page.layout == 'home' %}#projects{% else %}{{ '/#projects' | relative_url }}{% endif %}">Projects</a></li>
+      <li><a href="{{ '/blog/' | relative_url }}" {% if page.layout == 'blog' or page.layout == 'post' %}class="active"{% endif %}>Blog</a></li>
+      <li><a href="{% if page.layout == 'home' %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+</nav>
