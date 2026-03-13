@@ -108,6 +108,41 @@ nav.scrolled {
 .nav-links a:hover,
 .nav-links a.active { color: var(--text-primary); background: rgba(255,255,255,0.05); }
 
+/* Nav actions (lang toggle + mobile menu) */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Language toggle */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+}
+.lang-toggle:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(56, 189, 248, 0.2);
+}
+.lang-globe {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
 /* Mobile menu */
 .menu-toggle {
   display: none;
