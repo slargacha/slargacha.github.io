@@ -3,10 +3,26 @@ layout: default
 ---
 <article>
   <header class="post-header">
-    <a href="{{ '/blog/' | relative_url }}" class="post-back">
+    <nav class="post-nav post-nav-top">
+      {% if page.previous.url %}
+      <a href="{{ page.previous.url | relative_url }}">
+        <div class="nav-label">&larr; Previous</div>
+        <div class="nav-title">{{ page.previous.title }}</div>
+      </a>
+      {% endif %}
+      {% if page.next.url %}
+      <a href="{{ page.next.url | relative_url }}" class="next">
+        <div class="nav-label">Next &rarr;</div>
+        <div class="nav-title">{{ page.next.title }}</div>
+      </a>
+      {% endif %}
+    </nav>
+
+    <a href="/blog/" class="post-back">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
       Back to Blog
     </a>
+
     <div class="post-meta">
       <span class="date">{{ page.date | date: "%B %d, %Y" }}</span>
       <span class="separator">&bull;</span>
@@ -27,7 +43,7 @@ layout: default
     {{ content }}
   </div>
 
-  <nav class="post-nav">
+  <nav class="post-nav post-nav-bottom">
     {% if page.previous.url %}
     <a href="{{ page.previous.url | relative_url }}">
       <div class="nav-label">&larr; Previous</div>

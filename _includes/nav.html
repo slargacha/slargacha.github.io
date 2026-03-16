@@ -3,12 +3,12 @@
   <div class="nav-inner">
     <a href="{{ '/' | relative_url }}" class="nav-logo">SL<span>.</span></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="{% if page.layout == 'home' %}#about{% else %}{{ '/#about' | relative_url }}{% endif %}" data-i18n="nav.about">About</a></li>
-      <li><a href="{% if page.layout == 'home' %}#skills{% else %}{{ '/#skills' | relative_url }}{% endif %}" data-i18n="nav.skills">Skills</a></li>
-      <li><a href="{% if page.layout == 'home' %}#experience{% else %}{{ '/#experience' | relative_url }}{% endif %}" data-i18n="nav.experience">Experience</a></li>
-      <li><a href="{% if page.layout == 'home' %}#projects{% else %}{{ '/#projects' | relative_url }}{% endif %}" data-i18n="nav.projects">Projects</a></li>
-      <li><a href="{{ '/blog/' | relative_url }}" {% if page.layout == 'blog' or page.layout == 'post' %}class="active"{% endif %} data-i18n="nav.blog">Blog</a></li>
-      <li><a href="{% if page.layout == 'home' %}#contact{% else %}{{ '/#contact' | relative_url }}{% endif %}" data-i18n="nav.contact">Contact</a></li>
+      <li><a href="{% if page.layout == 'home' %}#about{% else %}/{{ '#about' }}{% endif %}" data-i18n="nav.about">About</a></li>
+      <li><a href="{% if page.layout == 'home' %}#skills{% else %}/{{ '#skills' }}{% endif %}" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="{% if page.layout == 'home' %}#experience{% else %}/{{ '#experience' }}{% endif %}" data-i18n="nav.experience">Experience</a></li>
+      <li><a href="{% if page.layout == 'home' %}#projects{% else %}/{{ '#projects' }}{% endif %}" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="/blog/" {% if page.layout == 'blog' or page.layout == 'post' %}class="active"{% endif %} data-i18n="nav.blog">Blog</a></li>
+      <li><a href="{% if page.layout == 'home' %}#contact{% else %}/{{ '#contact' }}{% endif %}" data-i18n="nav.contact">Contact</a></li>
     </ul>
     <div class="nav-actions">
       <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()" aria-label="Change language">
