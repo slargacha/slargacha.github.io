@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }} | {{ site.author.role }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
+  <link rel="icon" type="image/png" href="{{ '/assets/favicon.png' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   {% feed_meta %}
@@ -33,7 +37,16 @@
   const menuToggle = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
   menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
+    const isOpen = navLinks.classList.toggle('active');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!navbar.contains(e.target)) {
+      navLinks.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', false);
+    }
   });
 
   // Close menu on link click
@@ -51,6 +64,78 @@
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   revealElements.forEach(el => revealObserver.observe(el));
+
+  // Scroll spy — highlight active nav section
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+  if (sections.length && navAnchors.length) {
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navAnchors.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(s => spyObserver.observe(s));
+  }
+
+  // Typewriter animation for terminal
+  const terminalLines = [
+    { prompt: true, text: 'whoami', delay: 400 },
+    { prompt: false, text: 'Sebastian Largacha', delay: 300 },
+    { prompt: true, text: 'cat role.txt', delay: 500 },
+    { prompt: false, text: 'Systems Engineer', delay: 300 },
+    { prompt: true, text: 'echo $SKILLS', delay: 500 },
+    { prompt: false, text: 'AWS · K8s · Terraform · Docker · CI/CD', delay: 300 },
+    { prompt: true, text: 'uptime', delay: 400 },
+    { prompt: false, text: document.querySelector('[data-i18n="about.terminal.output"]')?.textContent || 'always building, always learning', delay: 0 },
+  ];
+  const terminalBody = document.querySelector('.terminal-body');
+  if (terminalBody) {
+    terminalBody.innerHTML = '';
+    let lineIndex = 0;
+    function typeNextLine() {
+      if (lineIndex >= terminalLines.length) {
+        const cursor = document.createElement('div');
+        cursor.innerHTML = '<span class="prompt">$</span> <span class="cursor"></span>';
+        terminalBody.appendChild(cursor);
+        return;
+      }
+      const line = terminalLines[lineIndex++];
+      const div = document.createElement('div');
+      if (line.prompt) {
+        div.innerHTML = `<span class="prompt">$</span> <span class="command"></span>`;
+        terminalBody.appendChild(div);
+        const cmdSpan = div.querySelector('.command');
+        let i = 0;
+        const typeChar = () => {
+          if (i < line.text.length) {
+            cmdSpan.textContent += line.text[i++];
+            setTimeout(typeChar, 55);
+          } else {
+            setTimeout(typeNextLine, line.delay);
+          }
+        };
+        setTimeout(typeChar, 200);
+      } else {
+        div.className = line.text.startsWith('Sebastian') || line.text.startsWith('Systems') ? 'output' : 'highlight';
+        div.textContent = line.text;
+        terminalBody.appendChild(document.createElement('br').cloneNode());
+        terminalBody.appendChild(div);
+        setTimeout(typeNextLine, line.delay);
+      }
+    }
+    // Start when terminal is visible
+    const termObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        termObserver.disconnect();
+        setTimeout(typeNextLine, 600);
+      }
+    }, { threshold: 0.5 });
+    termObserver.observe(terminalBody);
+  }
 </script>
 
 </body>

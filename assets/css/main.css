@@ -439,13 +439,18 @@ section { padding: 100px 24px; }
   transform: translateY(-4px);
 }
 .skill-icon {
-  width: 48px; height: 48px;
-  border-radius: 12px;
+  width: 52px; height: 52px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
   font-size: 22px;
+}
+.skill-icon svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }
 .skill-category h3 {
   font-size: 18px;
@@ -698,6 +703,24 @@ footer {
 footer p {
   font-size: 14px;
   color: var(--text-secondary);
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.footer-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.footer-links a {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.footer-links a:hover {
+  color: var(--accent);
 }
 
 /* ===== ANIMATIONS (SCROLL REVEAL) ===== */
@@ -1039,4 +1062,12 @@ footer p {
 @media (max-width: 480px) {
   .about-stats { grid-template-columns: 1fr; }
   .hero-buttons { flex-direction: column; align-items: center; }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

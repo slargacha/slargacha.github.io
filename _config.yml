@@ -1,15 +1,18 @@
 title: Sebastian Largacha
-description: DevOps Engineer specializing in cloud infrastructure, automation, and scalable systems.
+description: Systems Engineer specializing in cloud infrastructure, automation, and scalable systems.
 url: "https://slargacha.github.io"
 baseurl: ""
 
 # Author
 author:
   name: Sebastian Largacha
-  role: DevOps Engineer
-  email: your-email@email.com
+  role: Systems Engineer
+  email: chitas1004@hotmail.com
   github: slargacha
-  linkedin: ""
+  linkedin: "slargacha"
+
+# SEO / Social
+og_image: /assets/og-image.svg
 
 # Build settings
 markdown: kramdown

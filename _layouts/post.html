@@ -6,19 +6,19 @@ layout: default
     <nav class="post-nav post-nav-top">
       {% if page.previous.url %}
       <a href="{{ page.previous.url | relative_url }}">
-        <div class="nav-label">&larr; Previous</div>
+        <div class="nav-label" data-i18n="post.prev">&larr; Previous</div>
         <div class="nav-title">{{ page.previous.title }}</div>
       </a>
       {% endif %}
       {% if page.next.url %}
       <a href="{{ page.next.url | relative_url }}" class="next">
-        <div class="nav-label">Next &rarr;</div>
+        <div class="nav-label" data-i18n="post.next">Next &rarr;</div>
         <div class="nav-title">{{ page.next.title }}</div>
       </a>
       {% endif %}
     </nav>
 
-    <a href="/blog/" class="post-back">
+    <a href="/blog/" class="post-back" data-i18n="post.back">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
       Back to Blog
     </a>
@@ -26,7 +26,7 @@ layout: default
     <div class="post-meta">
       <span class="date">{{ page.date | date: "%B %d, %Y" }}</span>
       <span class="separator">&bull;</span>
-      <span>{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+      <span>{{ content | number_of_words | divided_by: 200 | plus: 1 }} <span data-i18n="post.minread">min read</span></span>
     </div>
     <h1>{{ page.title }}</h1>
     {% if page.excerpt %}<p class="post-excerpt">{{ page.excerpt | strip_html }}</p>{% endif %}
@@ -46,13 +46,13 @@ layout: default
   <nav class="post-nav post-nav-bottom">
     {% if page.previous.url %}
     <a href="{{ page.previous.url | relative_url }}">
-      <div class="nav-label">&larr; Previous</div>
+      <div class="nav-label" data-i18n="post.prev">&larr; Previous</div>
       <div class="nav-title">{{ page.previous.title }}</div>
     </a>
     {% endif %}
     {% if page.next.url %}
     <a href="{{ page.next.url | relative_url }}" class="next">
-      <div class="nav-label">Next &rarr;</div>
+      <div class="nav-label" data-i18n="post.next">Next &rarr;</div>
       <div class="nav-title">{{ page.next.title }}</div>
     </a>
     {% endif %}
