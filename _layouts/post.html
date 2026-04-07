@@ -3,7 +3,8 @@ layout: default
 ---
 <article>
   <header class="post-header">
-    <nav class="post-nav post-nav-top">
+    {% if page.previous.url or page.next.url %}
+    <nav class="post-nav post-nav-top" aria-label="Post navigation, top">
       {% if page.previous.url %}
       <a href="{{ page.previous.url | relative_url }}">
         <div class="nav-label" data-i18n="post.prev">&larr; Previous</div>
@@ -17,16 +18,23 @@ layout: default
       </a>
       {% endif %}
     </nav>
+    {% endif %}
 
-    <a href="/blog/" class="post-back" data-i18n="post.back">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
-      Back to Blog
+    <a href="{{ '/blog/' | relative_url }}" class="post-back">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 19l-7-7 7-7"/></svg>
+      <span data-i18n="post.back">Back to Blog</span>
     </a>
 
     <div class="post-meta">
-      <span class="date">{{ page.date | date: "%B %d, %Y" }}</span>
+      {% if page.lang == 'es' %}
+      {% capture es_date %}{{ page.date | date: "%d de %B de %Y" }}{% endcapture %}
+      {% assign es_date = es_date | replace: 'January', 'enero' | replace: 'February', 'febrero' | replace: 'March', 'marzo' | replace: 'April', 'abril' | replace: 'May', 'mayo' | replace: 'June', 'junio' | replace: 'July', 'julio' | replace: 'August', 'agosto' | replace: 'September', 'septiembre' | replace: 'October', 'octubre' | replace: 'November', 'noviembre' | replace: 'December', 'diciembre' %}
+      <time class="date" datetime="{{ page.date | date_to_xmlschema }}">{{ es_date }}</time>
+      {% else %}
+      <time class="date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+      {% endif %}
       <span class="separator">&bull;</span>
-      <span>{{ content | number_of_words | divided_by: 200 | plus: 1 }} <span data-i18n="post.minread">min read</span></span>
+      <span><span class="reading-time-number">{{ content | strip_html | number_of_words | divided_by: 200 | plus: 1 }}</span> <span data-i18n="post.minread">min read</span></span>
     </div>
     <h1>{{ page.title }}</h1>
     {% if page.excerpt %}<p class="post-excerpt">{{ page.excerpt | strip_html }}</p>{% endif %}
@@ -43,7 +51,8 @@ layout: default
     {{ content }}
   </div>
 
-  <nav class="post-nav post-nav-bottom">
+  {% if page.previous.url or page.next.url %}
+  <nav class="post-nav post-nav-bottom" aria-label="Post navigation, bottom">
     {% if page.previous.url %}
     <a href="{{ page.previous.url | relative_url }}">
       <div class="nav-label" data-i18n="post.prev">&larr; Previous</div>
@@ -57,4 +66,5 @@ layout: default
     </a>
     {% endif %}
   </nav>
+  {% endif %}
 </article>

@@ -1,7 +1,8 @@
 ---
 layout: post
-title: "Objects de tipo Workload en Kubernetes"
+title: "Objetos de tipo Workload en Kubernetes"
 date: 2026-03-13
+lang: es
 excerpt: "Conoce los principales objetos de tipo Workload en Kubernetes, qué son, para qué sirven y cuándo usar cada uno."
 tags: [Kubernetes, DevOps, Containers, Cloud]
 ---
@@ -245,4 +246,4 @@ Elegir el Workload Object correcto es clave para diseñar aplicaciones robustas 
 
 ---
 
-![Kubernetes Workload Objects](/assets/images/k8s-workloads.webp)
+![Kubernetes Workload Objects](/assets/images/k8s-workloads.webp){:width="800" height="450" loading="lazy"}

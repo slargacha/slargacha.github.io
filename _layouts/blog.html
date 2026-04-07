@@ -1,21 +1,21 @@
 ---
 layout: default
 ---
-<div class="blog-header">
+<header class="blog-header">
   <span class="section-label" data-i18n="blog.label">Blog</span>
   <h1 class="section-title" data-i18n="blog.title">Thoughts &amp; Articles</h1>
-  <p class="section-desc" style="margin: 0 auto;" data-i18n="blog.desc">Writing about DevOps, cloud infrastructure, automation, and lessons learned along the way.</p>
-</div>
+  <p class="section-desc" data-i18n="blog.desc">Writing about DevOps, cloud infrastructure, automation, and lessons learned along the way.</p>
+</header>
 
 <div class="blog-grid">
   {% for post in site.posts %}
   <a href="{{ post.url | relative_url }}" class="blog-card reveal">
     <div class="blog-card-meta">
-      <span class="date">{{ post.date | date: "%b %d, %Y" }}</span>
+      <time class="date" datetime="{{ post.date | date_to_xmlschema }}">{% if post.lang == 'es' %}{% capture es_date %}{{ post.date | date: "%d de %B de %Y" }}{% endcapture %}{{ es_date | replace: 'January', 'enero' | replace: 'February', 'febrero' | replace: 'March', 'marzo' | replace: 'April', 'abril' | replace: 'May', 'mayo' | replace: 'June', 'junio' | replace: 'July', 'julio' | replace: 'August', 'agosto' | replace: 'September', 'septiembre' | replace: 'October', 'octubre' | replace: 'November', 'noviembre' | replace: 'December', 'diciembre' }}{% else %}{{ post.date | date: "%b %d, %Y" }}{% endif %}</time>
       <span class="separator">&bull;</span>
-      <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+      <span class="reading-time"><span class="reading-time-number">{{ post.content | strip_html | number_of_words | divided_by: 200 | plus: 1 }}</span> <span data-i18n="post.minread">min read</span></span>
     </div>
-    <h3>{{ post.title }}</h3>
+    <h2>{{ post.title }}</h2>
     <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
     {% if post.tags.size > 0 %}
     <div class="blog-card-tags">
@@ -30,6 +30,6 @@ layout: default
 
 {% if site.posts.size == 0 %}
 <div class="blog-empty">
-  <p>No posts yet. Coming soon! 🚀</p>
+  <p data-i18n="blog.empty">No posts yet. Coming soon! 🚀</p>
 </div>
 {% endif %}

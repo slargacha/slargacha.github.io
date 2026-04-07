@@ -1,18 +1,23 @@
 title: Sebastian Largacha
-description: Systems Engineer specializing in cloud infrastructure, automation, and scalable systems.
+description: "Sebastian Largacha — Systems Engineer specializing in cloud infrastructure, Kubernetes, and AWS."
 url: "https://slargacha.github.io"
 baseurl: ""
+lang: en
 
 # Author
 author:
   name: Sebastian Largacha
+  twitter: slargacha
   role: Systems Engineer
   email: chitas1004@hotmail.com
   github: slargacha
   linkedin: "slargacha"
 
 # SEO / Social
-og_image: /assets/og-image.svg
+logo: /assets/og-image.png
+twitter:
+  username: slargacha
+  card: summary_large_image
 
 # Build settings
 markdown: kramdown
@@ -25,10 +30,17 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
-# Collections
-collections:
-  posts:
-    output: true
+# Defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/og-image.png
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
 
 # Exclude from build
 exclude:
@@ -36,3 +48,4 @@ exclude:
   - Gemfile.lock
   - README.md
   - .gitignore
+  - .github/

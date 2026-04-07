@@ -1,26 +1,27 @@
 <!-- NAVIGATION -->
-<nav id="navbar">
+<a class="skip-link" href="#main" data-i18n="nav.skip">Skip to main content</a>
+<nav id="navbar" aria-label="Main navigation">
   <div class="nav-inner">
     <a href="{{ '/' | relative_url }}" class="nav-logo">SL<span>.</span></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="{% if page.layout == 'home' %}#about{% else %}/{{ '#about' }}{% endif %}" data-i18n="nav.about">About</a></li>
-      <li><a href="{% if page.layout == 'home' %}#skills{% else %}/{{ '#skills' }}{% endif %}" data-i18n="nav.skills">Skills</a></li>
-      <li><a href="{% if page.layout == 'home' %}#experience{% else %}/{{ '#experience' }}{% endif %}" data-i18n="nav.experience">Experience</a></li>
-      <li><a href="{% if page.layout == 'home' %}#education{% else %}/{{ '#education' }}{% endif %}" data-i18n="nav.education">Education</a></li>
-      <li><a href="{% if page.layout == 'home' %}#projects{% else %}/{{ '#projects' }}{% endif %}" data-i18n="nav.projects">Projects</a></li>
-      <li><a href="/blog/" {% if page.layout == 'blog' or page.layout == 'post' %}class="active"{% endif %} data-i18n="nav.blog">Blog</a></li>
-      <li><a href="{% if page.layout == 'home' %}#contact{% else %}/{{ '#contact' }}{% endif %}" data-i18n="nav.contact">Contact</a></li>
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a href="{% if page.layout == 'home' %}#about{% else %}{{ '/' | relative_url }}#about{% endif %}" data-i18n="nav.about">About</a></li>
+      <li><a href="{% if page.layout == 'home' %}#skills{% else %}{{ '/' | relative_url }}#skills{% endif %}" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="{% if page.layout == 'home' %}#experience{% else %}{{ '/' | relative_url }}#experience{% endif %}" data-i18n="nav.experience">Experience</a></li>
+      <li><a href="{% if page.layout == 'home' %}#education{% else %}{{ '/' | relative_url }}#education{% endif %}" data-i18n="nav.education">Education</a></li>
+      <li><a href="{% if page.layout == 'home' %}#projects{% else %}{{ '/' | relative_url }}#projects{% endif %}" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="{{ '/blog/' | relative_url }}" {% if page.layout == 'blog' %}class="active" aria-current="page"{% elsif page.layout == 'post' %}class="active"{% endif %} data-i18n="nav.blog">Blog</a></li>
+      <li><a href="{% if page.layout == 'home' %}#contact{% else %}{{ '/' | relative_url }}#contact{% endif %}" data-i18n="nav.contact">Contact</a></li>
     </ul>
     <div class="nav-actions">
-      <button type="button" class="lang-toggle" id="langToggle" onclick="toggleLanguage()" aria-label="Change language">
-        <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <button type="button" class="lang-toggle" id="langToggle" aria-label="Change language">
+        <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <circle cx="12" cy="12" r="10"/>
           <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/>
         </svg>
         <span id="langText">EN</span>
       </button>
-      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
-        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Toggle menu" data-i18n-aria="nav.menu" aria-expanded="false" aria-controls="navLinks">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>

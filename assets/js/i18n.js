@@ -6,11 +6,9 @@ const translations = {
     "nav.skills": "Skills",
     "nav.experience": "Experience",
     "nav.education": "Education",
-    "nav.projects": "Projects",
+    "nav.projects": "Achievements",
     "nav.blog": "Blog",
     "nav.contact": "Contact",
-
-    // Hero
     "hero.badge": "Available for new opportunities",
     "hero.title": 'Building the <span class="gradient-text">Cloud Infrastructure</span> of Tomorrow',
     "hero.subtitle": "Systems Engineer specializing in scalable cloud architecture, automation, and reliable systems using modern infrastructure practices.",
@@ -82,8 +80,6 @@ const translations = {
     "proj.desc1": "Led the migration of virtual machines from Netgroup cloud provider to AWS. Containerizable workloads were deployed on EKS and ECS clusters, while non-containerizable VMs were migrated as EC2 instances, ensuring zero data loss and minimal downtime.",
     "proj.name2": "Chance Bingo — CI/CD Pipeline on EKS",
     "proj.desc2": "Built a full CI/CD pipeline in Azure DevOps for the Chance Bingo application. The pipeline builds the Docker image, pushes it to Amazon ECR, and deploys to an EKS cluster with two isolated namespaces: test (automatic deployment) and prod (approval-gated, restricted to authorized personnel only).",
-    "proj.name3": "Cloud Migration from Netgroup to AWS",
-    "proj.desc3": "Led the migration of virtual machines from Netgroup cloud provider to AWS. Containerizable workloads were deployed on EKS and ECS clusters, while non-containerizable VMs were migrated as EC2 instances, ensuring zero data loss and minimal downtime.",
 
     // Certifications
     "cert.label": "Certifications",
@@ -102,6 +98,7 @@ const translations = {
     "blog.label": "Blog",
     "blog.title": "Thoughts & Articles",
     "blog.desc": "Writing about DevOps, cloud infrastructure, automation, and lessons learned along the way.",
+    "blog.empty": "No posts yet. Coming soon! 🚀",
 
     // Contact
     "contact.label": "Contact",
@@ -109,7 +106,18 @@ const translations = {
     "contact.desc": "I'm always open to discussing new opportunities, interesting projects, or ways to help your team build better infrastructure.",
     "contact.email": "Send Email",
     "contact.github": "GitHub",
-    "contact.linkedin": "LinkedIn"
+    "contact.linkedin": "LinkedIn",
+
+    // 404
+    "404.title": 'Page <span class="gradient-text">Not Found</span>',
+    "404.subtitle": "Looks like this page got lost in the cloud. Let's get you back on track.",
+    "404.home": "Back to Home",
+    "404.blog": "View Blog",
+
+    // Accessibility
+    "nav.skip": "Skip to main content",
+    "nav.menu": "Toggle menu",
+    "nav.top": "Back to top"
   },
 
   es: {
@@ -118,7 +126,7 @@ const translations = {
     "nav.skills": "Habilidades",
     "nav.experience": "Experiencia",
     "nav.education": "Educación",
-    "nav.projects": "Proyectos",
+    "nav.projects": "Logros",
     "nav.blog": "Blog",
     "nav.contact": "Contacto",
 
@@ -194,8 +202,6 @@ const translations = {
     "proj.desc1": "Lideré la migración de máquinas virtuales del proveedor cloud Netgroup a AWS. Las cargas de trabajo containerizables se desplegaron en clústeres EKS y ECS, mientras que las VMs no containerizables se migraron como instancias EC2, asegurando cero pérdida de datos y mínimo tiempo de inactividad.",
     "proj.name2": "Chance Bingo — Pipeline CI/CD en EKS",
     "proj.desc2": "Construí un pipeline CI/CD completo en Azure DevOps para la aplicación Chance Bingo. El pipeline construye la imagen Docker, la sube a Amazon ECR y despliega en un clúster EKS con dos namespaces aislados: test (despliegue automático) y prod (con aprobación requerida, restringido solo al personal autorizado).",
-    "proj.name3": "Migración Cloud de Netgroup a AWS",
-    "proj.desc3": "Lideré la migración de máquinas virtuales del proveedor cloud Netgroup a AWS. Las cargas de trabajo containerizables se desplegaron en clústeres EKS y ECS, mientras que las VMs no containerizables se migraron como instancias EC2, asegurando cero pérdida de datos y mínimo tiempo de inactividad.",
 
     // Certifications
     "cert.label": "Certificaciones",
@@ -214,6 +220,7 @@ const translations = {
     "blog.label": "Blog",
     "blog.title": "Artículos y Reflexiones",
     "blog.desc": "Escribiendo sobre DevOps, infraestructura cloud, automatización y lecciones aprendidas en el camino.",
+    "blog.empty": "Aún no hay artículos. ¡Próximamente! 🚀",
 
     // Contact
     "contact.label": "Contacto",
@@ -221,7 +228,18 @@ const translations = {
     "contact.desc": "Siempre estoy abierto a discutir nuevas oportunidades, proyectos interesantes o formas de ayudar a tu equipo a construir mejor infraestructura.",
     "contact.email": "Enviar Email",
     "contact.github": "GitHub",
-    "contact.linkedin": "LinkedIn"
+    "contact.linkedin": "LinkedIn",
+
+    // 404
+    "404.title": 'Página <span class="gradient-text">No Encontrada</span>',
+    "404.subtitle": "Parece que esta página se perdió en la nube. Volvamos al camino.",
+    "404.home": "Volver al Inicio",
+    "404.blog": "Ver Blog",
+
+    // Accessibility
+    "nav.skip": "Ir al contenido principal",
+    "nav.menu": "Abrir menú",
+    "nav.top": "Volver arriba"
   }
 };
 
@@ -232,7 +250,7 @@ function setLanguage(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (dict[key]) {
-      if (dict[key].includes('<')) {
+      if (el.hasAttribute('data-i18n-html')) {
         el.innerHTML = dict[key];
       } else {
         el.textContent = dict[key];
@@ -240,27 +258,39 @@ function setLanguage(lang) {
     }
   });
 
-  // Update html lang attribute
-  document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+  // Translate aria-label attributes
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.getAttribute('data-i18n-aria');
+    if (dict[key]) el.setAttribute('aria-label', dict[key]);
+  });
 
-  // Update toggle button text
+  // Update html lang attribute (skip if page has fixed content language)
+  if (!document.documentElement.getAttribute('data-page-lang')) {
+    document.documentElement.lang = lang;
+  }
+
+  // Update toggle button text and aria-label
   const langText = document.getElementById('langText');
   if (langText) {
     langText.textContent = lang.toUpperCase();
   }
+  const langToggle = document.getElementById('langToggle');
+  if (langToggle) {
+    langToggle.setAttribute('aria-label', lang === 'es' ? 'Switch to English' : 'Cambiar a español');
+  }
 
   // Save preference
-  localStorage.setItem('lang', lang);
+  try { localStorage.setItem('lang', lang); } catch (e) {}
 }
 
 function toggleLanguage() {
-  const current = localStorage.getItem('lang') || 'en';
+  try { var current = localStorage.getItem('lang') || 'en'; } catch (e) { var current = 'en'; }
   const next = current === 'en' ? 'es' : 'en';
   setLanguage(next);
 }
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('lang') || 'en';
+  try { var saved = localStorage.getItem('lang') || 'en'; } catch (e) { var saved = 'en'; }
   setLanguage(saved);
 });
